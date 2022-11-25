@@ -4,9 +4,8 @@
   "description": "a little app that tracks an event created by it's user and send them a mail once it done",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "build": "node server.js"
+    "test": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "xanta-codes,oademiju,godzie",
   "license": "ISC",
