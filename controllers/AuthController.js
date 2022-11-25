@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt")
 const User = require('../models/UserModel')
 
 //@desc Register User
-//@route POST /api/users
+//@route POST https://event-tracker-api.onrender.com/api/v1/auth/register-user
 //@access Public
 const registerUser = expressAsyncHandler( async (req, res) => {
 
@@ -44,7 +44,7 @@ const registerUser = expressAsyncHandler( async (req, res) => {
 
 
 //@desc Login User
-//@route POST /api/users/login
+//@route POST https://event-tracker-api.onrender.com/api/v1/auth/login-user
 //@access Public
 const loginUser = expressAsyncHandler( async (req, res) => {
     const {email, password} = req.body
@@ -73,7 +73,7 @@ const loginUser = expressAsyncHandler( async (req, res) => {
 })
 
 //@desc Get single User me
-//@route POST /api/users/me
+//@route POST https://event-tracker-api.onrender.com/api/get-me/:userId
 //@access private
 const getMe = expressAsyncHandler( async (req, res) => {
     // const {_id, name, email } = await User.findById(req.body.id)
