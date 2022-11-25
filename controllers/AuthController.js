@@ -8,7 +8,7 @@ const User = require('../models/UserModel')
 //@access Public
 const registerUser = expressAsyncHandler( async (req, res) => {
 
-    const {name, email, password} = req.body
+    const {fullname, email, password} = req.body
 
     // check if fields are filled 
     if(!fullname || !email || !password){
@@ -31,10 +31,9 @@ const registerUser = expressAsyncHandler( async (req, res) => {
     })
     
     if(user) {res.status(201).json({ 
-        _id: user.id,
-        fullname: user.name,
+        fullname: user.fullname,
         email: user.email,
-        token: generateToken(user._id)
+        _id: user.id
     })}
 
     if(!user){
@@ -55,17 +54,16 @@ const loginUser = expressAsyncHandler( async (req, res) => {
     // console.log(userEmail)
     const validPassword = await bcrypt.compare(password, user.password)
 
-    const accessToken = jwt.sign({id: user._id, name: user.fullName}, process.env.JWT_SECRET, {expiresIn: '40d'})
+    const accessToken = jwt.sign({fullname: user.fullname, email: user.email, _id:user.id}, process.env.JWT_SECRET, {expiresIn: '40d'})
 
 
     // await user.save()
     
         res.status(201).json({
-            _id: user.id,
-            name: user.name,
+            name: user.fullname,
             email: user.email,
-            token: generateToken(user._id)
-
+            _id: user.id,
+            accessToken
         })
         
     // } else{
@@ -84,8 +82,8 @@ const getMe = expressAsyncHandler( async (req, res) => {
 
 })
 
-const generateToken = (id) => {
-    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "1d"})
-}
+// const generateToken = (id) => {
+//     return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "1d"})
+// }
 
 module.exports = {registerUser, loginUser, getMe} 
