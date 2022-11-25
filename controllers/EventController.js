@@ -71,6 +71,51 @@ class EventController {
         }
     }
 
+    async updateSingleEvent(req, res) {
+        const body = req.body;
+        const eventId = req.params.eventId;
+        try {
+            let validation = new Validator(body, {
+                event_name: "required",
+                event_date: "required|date",
+                event_time: "required", 
+            })
+            
+            if(validation.fails())
+                res.status(400).json({message: validation.errors})
+ 
+            const {event_type, event_name, event_date, event_time} = body
+            
+            EventModel.findOneAndUpdate({_id: eventId}, {
+                eventName: services.convertToLower(event_name),
+                eventType: event_type,
+                eventDate: event_date, 
+                eventTime: event_time,
+            }, (err, event) => {
+                if(err)
+                    res.status(404).json({message: err})
+                
+                res.status(200).json({ message: "Event was successfully updated", data: event })
+            });
+        } catch (err) {
+            res.status(500).json({ message: err.message })
+        }
+    }
+
+    async deleteEvent(req, res) {
+        const eventId = req.params.eventId;
+        try {
+            EventModel.findOneAndDelete({_id: eventId}, (err, event) => {
+                if(err)
+                    res.status(404).json({ message: err.message })
+
+                res.status(200).json({ message: "Event was successfully deleted", data: event })  
+            })
+        } catch (err) {
+            res.status(500).json({ message: err.message })
+        }
+    }
+
 
 }
 
