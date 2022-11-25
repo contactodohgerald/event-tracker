@@ -16,11 +16,16 @@
     "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.3",
+
+    "validatorjs": "^3.22.1",
+    "nodemon": "^2.0.20",
+
     "nodemailer": "^6.8.0",
     "validator": "^13.7.0",
     "validatorjs": "^3.22.1"
+
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    
   }
 }
