@@ -8,6 +8,7 @@ const CombineRouter = require('./routes/mainRouter')
 const app = express()
 
 // connect to mongoose
+console.log(connects.MONGO_URL)
 mongoose.connect(connects.MONGO_URL, { retryWrites: true, w: 'majority' })
 .then(() => {
     console.log('Connected to MongoDb')
