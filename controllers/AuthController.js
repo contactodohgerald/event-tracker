@@ -9,7 +9,7 @@ const signToken = (id) => {
 
 exports.signup = async (req, res, next)=> {
 
-        const newUser=await User.create({
+        const newUser = await User.create({
             fullname: req.body.fullname,
             email: req.body.email,
             password: req.body.password,
@@ -21,9 +21,7 @@ exports.signup = async (req, res, next)=> {
         res.status(200).json({
               staus: 'success',
               token,
-              data: {
-                user: newUser,
-              },
+              data: newUser,
             })      
     
 }
@@ -47,7 +45,7 @@ exports.login= async (req, res, next )=> {
 
         res.status(201).json({
             staus: 'success',
-            token
+            token 
           })
     next()
 }
