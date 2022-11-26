@@ -116,6 +116,19 @@ class EventController {
         }
     }
 
+    async getAllUser(req, res){
+        try {
+            const users = await UserModel.find();
+            if(users.length == 0){   
+                res.status(404).json({ staus: 'error', message: "No Data was returned" })
+            }else{
+                res.status(200).json({ staus: 'success', message: "Data was successfully returned", data: users })
+            }
+        } catch (err) {
+            res.status(500).json({ staus: 'error', message: err.message })
+        }
+    }
+
 
 }
 

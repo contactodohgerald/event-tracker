@@ -10,4 +10,7 @@ router.get('/user-events/:userId', events.getAllUserEvents)
 router.patch('/update-event/:eventId', events.updateSingleEvent)
 router.delete('/delete-event/:eventId', events.deleteEvent)
 
+router.get('/get-users', events.getAllUser)
+
+
 module.exports = router;
