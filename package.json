@@ -4,9 +4,8 @@
   "description": "a little app that tracks an event created by it's user and send them a mail once it done",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "build": "node server.js"
+    "test": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "xanta-codes,oademiju,godzie",
   "license": "ISC",
@@ -19,9 +18,15 @@
     "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.3",
-    "validatorjs": "^3.22.1"
+
+    "validatorjs": "^3.22.1",
+    "nodemon": "^2.0.20",
+
+    "nodemailer": "^6.8.0",
+    "validator": "^13.7.0"
+
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    
   }
 }
