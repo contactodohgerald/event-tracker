@@ -1,11 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const http = require('http')
+const cors = require('cors')
 const connects = require('./database/connection')
 
 const CombineRouter = require('./routes/mainRouter')
 
 const app = express()
+app.use(cors());
+
 
 // connect to mongoose
 mongoose.connect(connects.MONGO_URL, { retryWrites: true, w: 'majority' })
