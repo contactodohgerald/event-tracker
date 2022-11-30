@@ -30,11 +30,14 @@ const registerUser = expressAsyncHandler( async (req, res) => {
         password: hashPassword
     })
     
-    if(user) {res.status(201).json({ 
-        fullname: user.fullname,
-        email: user.email,
-        _id: user.id
-    })}
+    if(user) {
+        newUser = {
+            fullname: user.fullname,
+            email: user.email,
+            _id: user.id
+        }
+        res.status(201).json({ status: 'success', message: "User was successfully created", data: newUser })
+}
 
     if(!user){
         res.status(400)
@@ -51,39 +54,36 @@ const loginUser = expressAsyncHandler( async (req, res) => {
 
     // check for email in database 
     const user = await User.findOne({email})
-    // console.log(userEmail)
-    const validPassword = await bcrypt.compare(password, user.password)
+    if(user){
+        const validPassword = await bcrypt.compare(password, user.password)
 
-    const accessToken = jwt.sign({fullname: user.fullname, email: user.email, _id:user.id}, process.env.JWT_SECRET, {expiresIn: '40d'})
-
-
-    // await user.save()
+        const accessToken = jwt.sign({
+            fullname: user.fullname, 
+            email: user.email, 
+            _id:user.id}, 
+            process.env.JWT_SECRET, 
+            {expiresIn: process.env.JWT_EXPIRES
+        })
     
-        res.status(201).json({
+        newUser = {
             name: user.fullname,
             email: user.email,
             _id: user.id,
-            accessToken
-        })
-        
-    // } else{
+            token: accessToken
+        }
+    
+        res.status(200).json({ status: 'success', message: "Login was successful", data: newUser })
+    }else{
         res.status(400)
         throw new Error("wrong credentials")
-    // }
+    }
 })
 
 //@desc Get single User me
 //@route POST https://event-tracker-api.onrender.com/api/get-me/:userId
 //@access private
 const getMe = expressAsyncHandler( async (req, res) => {
-    // const {_id, name, email } = await User.findById(req.body.id)
-    // res.status(200).json("display private data")
-         res.status(200).json(req.user)
-
+    res.status(200).json({ status: 'success', message: "User returned successfully", data: req.user })
 })
-
-// const generateToken = (id) => {
-//     return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "1d"})
-// }
 
 module.exports = {registerUser, loginUser, getMe} 
